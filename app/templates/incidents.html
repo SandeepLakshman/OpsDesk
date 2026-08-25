@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Incidents | OpsDesk{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <p class="eyebrow">OPERATIONS CENTER</p>
+        <h1>Incident Management</h1>
+        <p class="subtitle">Track, prioritize and manage operational incidents.</p>
+    </div>
+</div>
+
+<div class="glass-panel form-panel">
+    <h2>Create New Incident</h2>
+
+    <form method="POST">
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Incident Title</label>
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="e.g. API response time increased"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Priority</label>
+                <select name="priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                    <option value="Critical">Critical</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea
+                name="description"
+                placeholder="Describe the incident..."
+                required
+            ></textarea>
+        </div>
+
+        <button type="submit" class="primary-btn">
+            + Create Incident
+        </button>
+    </form>
+</div>
+
+<div class="glass-panel">
+    <div class="section-header">
+        <div>
+            <p class="eyebrow">LIVE TRACKING</p>
+            <h2>All Incidents</h2>
+        </div>
+
+        <span class="count-badge">{{ incidents|length }} incidents</span>
+    </div>
+
+    {% if incidents %}
+
+        <div class="incident-list">
+
+            {% for incident in incidents %}
+
+            <div class="incident-row">
+
+                <div class="incident-id">
+                    #{{ incident.id }}
+                </div>
+
+                <div class="incident-info">
+                    <h3>{{ incident.title }}</h3>
+                    <p>{{ incident.description }}</p>
+                </div>
+
+                <span class="badge priority-{{ incident.priority|lower }}">
+                    {{ incident.priority }}
+                </span>
+
+                <span class="badge status-{{ incident.status|lower }}">
+                    {{ incident.status }}
+                </span>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+            <div class="empty-icon">✓</div>
+            <h3>No incidents yet</h3>
+            <p>Your operations environment is currently clear.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

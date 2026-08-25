@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | OpsDesk{% endblock %}
+
+{% block content %}
+
+<p class="eyebrow">OPS CENTER</p>
+
+<h1>Welcome back, Admin.</h1>
+
+<p class="subtitle">
+    Monitor incidents and keep your operations running smoothly.
+</p>
+
+<div class="stats">
+
+    <div class="card">
+        <h3>Total Incidents</h3>
+        <p>{{ incidents|length }}</p>
+    </div>
+
+    <div class="card">
+        <h3>System Status</h3>
+        <p style="color: #25d69b;">● Online</p>
+    </div>
+
+</div>
+
+<div class="glass-panel">
+
+    <div class="section-header">
+        <div>
+            <p class="eyebrow">LIVE OPERATIONS</p>
+            <h2>Recent Incidents</h2>
+        </div>
+
+        <a href="{{ url_for('main.incidents') }}"
+           class="primary-btn"
+           style="text-decoration:none;">
+            Manage Incidents →
+        </a>
+    </div>
+
+    {% if incidents %}
+
+        {% for incident in incidents %}
+
+        <div class="incident-row">
+
+            <div class="incident-id">
+                #{{ incident.id }}
+            </div>
+
+            <div class="incident-info">
+                <h3>{{ incident.title }}</h3>
+                <p>{{ incident.description }}</p>
+            </div>
+
+            <span class="badge priority-{{ incident.priority|lower }}">
+                {{ incident.priority }}
+            </span>
+
+            <span class="badge status-{{ incident.status|lower }}">
+                {{ incident.status }}
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-state">
+            <div class="empty-icon">✓</div>
+            <h3>No active incidents</h3>
+            <p>Your operations environment is looking good.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
