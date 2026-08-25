@@ -11,19 +11,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'python -m pip install -r requirements.txt'
+                sh 'python3 -m pip install -r requirements.txt --break-system-packages'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'python -m pytest -v'
+                sh 'python3 -m pytest -v'
             }
         }
 
         stage('Validation') {
             steps {
-                bat 'python -c "from app import create_app; app = create_app(); print(\\\"Application validation passed\\\")"'
+                sh 'python3 -c "from app import create_app; app = create_app(); print(\\\"Application validation passed\\\")"'
             }
         }
     }
