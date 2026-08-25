@@ -69,7 +69,7 @@ python -m pytest -v
 Current CI result:
 
 ```text
-3 tests passed
+3 tests passed!!!
 Application validation passed
 Finished: SUCCESS
 ```
