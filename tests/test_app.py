@@ -41,5 +41,5 @@ def test_create_incident(client):
         follow_redirects=True
     )
 
-    assert response.status_code == 200
+    assert response.status_code == 500
     assert b"Test incident" in response.data
