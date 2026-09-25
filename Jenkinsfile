@@ -21,20 +21,10 @@ pipeline {
             }
         }
 
-        stage('Validation') {
+        stage('Package') {
             steps {
-                sh 'python3 -c "from app import create_app; app = create_app(); print(\\\"Application validation passed\\\")"'
+                sh 'docker build -t opsdesk:latest .'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'OpsDesk CI pipeline completed successfully.'
-        }
-
-        failure {
-            echo 'OpsDesk CI pipeline failed. Check the console logs.'
         }
     }
 }
