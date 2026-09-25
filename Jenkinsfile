@@ -11,7 +11,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'python3 -m pip install -r requirements.txt --break-system-packages'
+                sh 'python3 -m pip install --ignore-installed -r requirements.txt --break-system-packages'
             }
         }
 
